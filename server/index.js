@@ -2,11 +2,12 @@ const express = require('express')
 const app = express()
 const port = 3000;
 const VisualRecognitionV3 = require('ibm-watson/visual-recognition/v3');
+require('dotenv').config();
 
 app.get('/', (req, res) => {
   const visualRecognition = new VisualRecognitionV3({
     version: '2018-03-19',
-    iam_apikey: '7LggtOAQJa6ra82j2DcRJvpVr83Xx_cz7z73hn2f0lAP'
+    iam_apikey: process.env.API_KEY
   });
 
   const classifyParams = {

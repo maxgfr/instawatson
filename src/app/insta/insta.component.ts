@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Constants } from "../../../constants";
 
 @Component({
   selector: 'insta',
@@ -15,7 +14,7 @@ export class InstaComponent implements OnInit {
   username: string;
   profile_picture: string;
   full_name: string;
-  data: [];
+  data: any;
   disabled: boolean = true;
 
   constructor(private activatedRoute: ActivatedRoute, private http: HttpClient) {
@@ -49,32 +48,25 @@ export class InstaComponent implements OnInit {
   }
 
   _watsonCall () {
-    //console.log(Constants.VISUAL_RECO_URL, Constants.VISUAL_RECO_API_KEY);
-    let url = Constants.VISUAL_RECO_URL+"/v3/classify?version=2018-03-19";
-
-    let body = new FormData();
-    body.append("images_file", "https://scontent.cdninstagram.com/vp/5a9eb452ee189a9e1e23d48a859a301a/5D58853B/t51.2885-15/sh0.08/e35/s640x640/38421707_226027368081268_4981884440968953856_n.jpg?_nc_ht=scontent.cdninstagram.com");
-    body.append("threshold", "0.2");
-    body.append("owners", "me");
-
-    let headers = new HttpHeaders({
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET,POST,PATCH,DELETE,PUT,OPTIONS',
-      'Access-Control-Allow-Headers': 'Origin, Content-Type, X-Auth-Token, content-type',
-      'Content-Type': 'application/json',
-      'Authorization': 'Basic '+Constants.VISUAL_RECO_API_KEY,
-      'X-Watson-Learning-Opt-Out': 'true'
-    });
-    let options = { headers: headers };
-
-    console.log(url, body, options)
-
-    this.http.post(url, body, options).toPromise()
+    const promises = [];
+    const all_data = this.data;
+    for(var i=0; i<this.data.length; i++) {
+        if(all_data[i].images.standard_resolution.url) {
+          //console.log(this.data[i]);
+          promises.push(this.http.get(`http://localhost:3000/?url=${this.data[i].images.standard_resolution.url}`).toPromise())
+        }
+    }
+    Promise.all(promises)
       .then((res) => {
-        console.log(res)
+        for(var i = 0; i < res.length; i++) {
+          for(var j=0; j < res[i].images.length; j++) {
+            //console.log(res[i].images[j].classifiers[0].classes)
+            this.data[i].classes = res[i].images[j].classifiers[0].classes;
+          }
+        }
       })
-      .catch((err) => {
-        console.log(err);
-      })
+      .catch((error) => {
+        console.error(error.message || error);
+      });
   }
 }

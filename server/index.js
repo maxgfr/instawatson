@@ -1,8 +1,11 @@
 const express = require('express')
+const cors = require('cors')
 const app = express()
-const port = 3000;
-const VisualRecognitionV3 = require('ibm-watson/visual-recognition/v3');
-require('dotenv').config();
+const port = 3000
+const VisualRecognitionV3 = require('ibm-watson/visual-recognition/v3')
+require('dotenv').config()
+
+app.use(cors())
 
 app.get('/', (req, res) => {
   const visualRecognition = new VisualRecognitionV3({

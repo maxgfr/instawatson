@@ -17,11 +17,14 @@
     </mat-card-header>
     <img mat-card-image src="{{obj.images.standard_resolution.url}}"/>
     <mat-card-content>
-      <p>
+      <div>
         {{obj.caption.text}}
-      </p>
-      <p *ngFor="let hashtag of obj.tags" style="font-weight:bold;">
-        #{{hashtag}}
+        <i *ngFor="let hashtag of obj.tags">
+          #{{hashtag}}
+        </i>
+      </div>
+      <p *ngFor="let output of obj.classes" style="font-weight:bold;">
+        {{output.class}} - {{output.score}}
       </p>
     </mat-card-content>
     <mat-card-actions>

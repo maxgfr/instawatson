@@ -1,6 +1,6 @@
 # instawatson
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.9.
+An [angular project](https://github.com/angular/angular) in which users can link their instagram and analysis their picture thanks to Watson Visual Recognition.
 
 ## Before Running
 

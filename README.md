@@ -17,8 +17,8 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ## Screen  :
 
 <div align="center">
+  <img src="https://github.com/maxgfr/instawatson/blob/master/.github/screen0.png"/>
   <img src="https://github.com/maxgfr/instawatson/blob/master/.github/screen1.png"/>
   <img src="https://github.com/maxgfr/instawatson/blob/master/.github/screen2.png"/>
   <img src="https://github.com/maxgfr/instawatson/blob/master/.github/screen3.png"/>
-  <img src="https://github.com/maxgfr/instawatson/blob/master/.github/screen4.png"/>
 </div>
